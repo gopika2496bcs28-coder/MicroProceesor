@@ -1,0 +1,48 @@
+CSE PRINT:	
+	OUTPUT 2500AD
+.ORG 2000H
+DATA SEGMENT
+DATA ENDS
+CODE SEGMENT
+        ASSUME CS:CODE,DS:DATA
+START:
+        MOV AX,DATA
+        MOV DS,AX
+        MOV AL,80H
+        MOV DX,FFE6H
+        OUT DX,AL
+REPEAT:
+        MOV AL,39H
+        MOV DX,FFE0H
+        OUT DX,AL
+        MOV AL,6BH
+        MOV DX,FFE2H
+        OUT DX,AL
+        MOV AL,79H
+        MOV DX,FFE4H
+        OUT DX,AL
+        CALL DELAY
+        MOV AL,00H
+        MOV DX,FFE0H
+        OUT DX,AL
+        MOV AL,00H
+        MOV DX,FFE2H
+        OUT DX,AL
+        MOV AL,00H
+        MOV DX,FFE4H
+        OUT DX,AL
+        CALL DELAY
+        JMP REPEAT
+DELAY:
+        MOV AH,15H
+D4:
+        MOV BX,AAAAH
+D5:
+        DEC BX
+        JNZ D5
+        DEC AH
+        JNZ D4
+        RET
+
+CODE ENDS
+END
